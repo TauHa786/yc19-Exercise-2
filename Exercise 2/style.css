@@ -1,0 +1,215 @@
+/* Reset & Base Variables */
+:root {
+  --bg-color: #f8fafc;
+  --surface-color: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --tag-bg: #e2e8f0;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: 2rem 1.5rem;
+}
+
+/* Header & Flexbox Filter Buttons */
+.gallery-header {
+  max-width: 1320px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.gallery-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.gallery-header p {
+  color: var(--text-secondary);
+  margin-bottom: 1.75rem;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background-color: var(--surface-color);
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease,
+              color var(--transition-speed) ease,
+              border-color var(--transition-speed) ease,
+              transform 0.2s ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* Main Gallery Grid (Desktop Default: 4 Columns) */
+.gallery-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  transition: all var(--transition-speed) ease;
+}
+
+/* Individual Card Grid Layout */
+.gallery-card {
+  display: grid;
+  grid-template-rows: 240px auto;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+  opacity: 1;
+  transform: scale(1);
+  transition: transform var(--transition-speed) ease,
+              opacity var(--transition-speed) ease,
+              box-shadow var(--transition-speed) ease;
+}
+
+/* Filtering Animation States */
+.gallery-card.is-filtering-out {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+.gallery-card.is-hidden {
+  display: none;
+}
+
+/* Card Hover Effects */
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.14);
+}
+
+/* Card Media & Overlay */
+.card-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.gallery-card:hover .card-media img {
+  transform: scale(1.08);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.35));
+  color: #ffffff;
+  display: grid;
+  align-items: end;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.card-overlay p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transform: translateY(10px);
+  transition: transform var(--transition-speed) ease;
+}
+
+.gallery-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.gallery-card:hover .card-overlay p {
+  transform: translateY(0);
+}
+
+/* Card Footer Grid Layout */
+.card-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background-color: var(--tag-bg);
+  color: var(--text-secondary);
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet: 2 Columns */
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 Column */
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 1rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
